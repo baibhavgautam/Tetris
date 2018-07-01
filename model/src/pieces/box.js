@@ -1,12 +1,7 @@
 class Box {
   constructor() {
-    this.shapeCode = 0
-    this.positionsOnBoard = [
-      [0, 4], 
-      [0, 5], 
-      [1, 4],
-      [1, 5]
-    ]
+    this.shapeCode = 0;
+    this.positionsOnBoard = [[0, 4], [0, 5], [1, 4], [1, 5]];
   }
 
   rotate() {
@@ -14,4 +9,4 @@ class Box {
   }
 }
 
-module.exports = Box
+module.exports = Box;
