@@ -2,7 +2,7 @@ body {
   background: darkgreen;
 }
 
-.piece-square {
+.dark {
   width: 25px;
   height: 25px;
   background-color: #ff9000;
@@ -12,7 +12,7 @@ body {
   border-style: ridge;
 }
 
-.board-square {
+.light {
   width: 25px;
   height: 25px;
   background-color: rgb(250, 255, 255);

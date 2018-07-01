@@ -17,7 +17,7 @@ class BoardGUI extends React.Component {
   }
 
   makeBlock(i, j) {
-    return <Block key={`${i},${j}`} currentColor={this.state.grid[i][j]} />;
+    return <Block key={`${i},${j}`} color={this.state.grid[i][j]} />;
   }
 
   render() {
