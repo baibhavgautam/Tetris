@@ -1,7 +1,14 @@
 const keypress = require("keypress");
 const Board = require("./board.js");
 
+const board = new Board();
+board.startGame(function() {
+  board.printGrid();
+});
+
 keypress(process.stdin);
+process.stdin.setRawMode(true);
+
 process.stdin.on("keypress", function(ch, key) {
   let pressedKey = key.name;
   switch (pressedKey) {
@@ -30,31 +37,3 @@ process.stdin.on("keypress", function(ch, key) {
     process.stdin.pause();
   }
 });
-
-const board = new Board();
-
-const reset = () => {
-  board.isGameOver = false;
-  board.initialize();
-  board.insertToGrid();
-  board.printGrid();
-
-  let timerId = setInterval(() => {
-    board.dropPieceOneStep();
-    board.printGrid();
-    //set state here
-    if (board.isGameOver) {
-      clearInterval(timerId);
-      startGame();
-    }
-  }, 500);
-};
-
-const startGame = () => {
-  reset();
-};
-
-startGame();
-
-process.stdin.setRawMode(true);
-process.stdin.resume();

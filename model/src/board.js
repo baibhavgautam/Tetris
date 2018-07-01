@@ -1,6 +1,7 @@
 const { Box, Ted, Straight, ZawL, ZawR, L, ReverseL } = require("./piece");
 const PIECES = [Box, Ted, Straight, ZawL, ZawR, L, ReverseL];
 const { LIGHT_SQUARE, DARK_SQUARE } = require("./utils/color_codes");
+
 class Board {
   constructor() {
     this.grid = new Array(20);
@@ -9,6 +10,21 @@ class Board {
     }
     this.isGameOver = false;
     this.nextPiece = this.getRandomPiece();
+  }
+
+  startGame(cb) {
+    this.isGameOver = false;
+    this.initialize();
+    this.insertToGrid();
+
+    let timerId = setInterval(() => {
+      this.dropPieceOneStep();
+      if (cb) cb(this.grid);
+      if (this.isGameOver) {
+        clearInterval(timerId);
+        this.startGame();
+      }
+    }, 500);
   }
 
   initialize() {
