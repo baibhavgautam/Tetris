@@ -1,5 +1,5 @@
 import React from "react";
-import Block from "./block";
+import { DARK_SQUARE } from "../model/src/utils/color_codes";
 import Board from "../model/src/board";
 import keyboardListener from "../utils/keyboard_listener";
 
@@ -21,7 +21,12 @@ class BoardUI extends React.Component {
   }
 
   makeBlock(i, j) {
-    return <Block key={`${i},${j}`} color={this.state.grid[i][j]} />;
+    return (
+      <div
+        key={`${i},${j}`}
+        className={this.state.grid[i][j] === DARK_SQUARE ? "dark" : "light"}
+      />
+    );
   }
 
   render() {
