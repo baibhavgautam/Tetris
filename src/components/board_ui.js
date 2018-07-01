@@ -2,22 +2,24 @@ import React from "react";
 import Board from "../model/src/board";
 import { DARK_SQUARE } from "../model/src/utils/color_codes";
 import keyboardListener from "../utils/keyboard_listener";
+import NextPiece from "./next_piece";
 
 class BoardUI extends React.Component {
   constructor(props) {
     super(props);
 
-    const board = new Board();
+    this.board = new Board();
     this.state = {
-      grid: board.grid
+      grid: this.board.grid,
+      nextPiece: this.board.nextPiece
     };
 
-    board.startGame(grid => {
+    this.board.startGame(grid => {
       this.setState({ grid });
     });
 
-    keyboardListener(board, grid => {
-      this.setState({ grid });
+    keyboardListener(this.board, (grid, nextPiece) => {
+      this.setState({ grid, nextPiece });
     });
   }
 
@@ -37,7 +39,12 @@ class BoardUI extends React.Component {
         blocks.push(this.makeBlock(i, j));
       }
     });
-    return <div className="board-grid">{blocks}</div>;
+    return (
+      <div className="game-container">
+        <div className="board-grid">{blocks}</div>
+        <NextPiece piece={this.board.nextPiece} />
+      </div>
+    );
   }
 }
 
