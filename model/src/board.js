@@ -1,9 +1,7 @@
 const { Box, Ted, Straight, ZawL, ZawR, L, ReverseL } = require("./piece");
 const PIECES = [Box, Ted, Straight, ZawL, ZawR, L, ReverseL];
+const { LIGHT_SQUARE, DARK_SQUARE } = require("./utils/color_codes");
 class Board {
-  // '◻', '◼'
-  //  String.fromCharCode(0x25FB) === '◻'
-  //  String.fromCharCode(0x25FC) ==='◼'
   constructor() {
     this.grid = new Array(20);
     for (let i = 0; i < this.grid.length; i++) {
@@ -17,7 +15,7 @@ class Board {
     for (let i = 0; i < this.grid.length; i++) {
       let row = this.grid[i];
       for (let j = 0; j < row.length; j++) {
-        row[j] = String.fromCharCode(0x25fb);
+        row[j] = LIGHT_SQUARE;
       }
     }
   }
@@ -50,7 +48,7 @@ class Board {
     positions.forEach(position => {
       let x = position[0];
       let y = position[1];
-      this.grid[x][y] = String.fromCharCode(0x25fc);
+      this.grid[x][y] = DARK_SQUARE;
     });
   }
 
@@ -58,7 +56,7 @@ class Board {
     positions.forEach(position => {
       let x = position[0];
       let y = position[1];
-      this.grid[x][y] = String.fromCharCode(0x25fb);
+      this.grid[x][y] = LIGHT_SQUARE;
     });
   }
 
@@ -96,7 +94,7 @@ class Board {
   isEmptySquare(position) {
     return (
       this.grid[position[0]] !== undefined &&
-      this.grid[position[0]][position[1]] === String.fromCharCode(0x25fb)
+      this.grid[position[0]][position[1]] === LIGHT_SQUARE
     );
   }
 
@@ -124,7 +122,7 @@ class Board {
     let fullLinesIndices = [];
     //Destroy all the full rows from the grid
     this.grid.forEach((row, i) => {
-      if (row.every(unitBox => unitBox === String.fromCharCode(0x25fc)))
+      if (row.every(unitBox => unitBox === DARK_SQUARE))
         fullLinesIndices.push(i);
     });
 
@@ -132,7 +130,7 @@ class Board {
       this.grid.splice(index, 1);
       let newRow = [];
       for (let i = 0; i < 10; i++) {
-        newRow.push(String.fromCharCode(0x25fb));
+        newRow.push(LIGHT_SQUARE);
       }
       this.grid.unshift(newRow);
     });
@@ -144,7 +142,7 @@ class Board {
       this.insertToGrid();
     } else if (this.willHitAnotherPieceComingDown()) {
       this.destroyFullLines();
-      if (this.grid[0].some(box => box === String.fromCharCode(0x25fc))) {
+      if (this.grid[0].some(box => box === DARK_SQUARE)) {
         this.isGameOver = true;
       } else {
         this.insertToGrid();
@@ -228,7 +226,7 @@ class Board {
   }
 
   isGameOver() {
-    return this.grid[0].some(box => box === "◼");
+    return this.grid[0].some(box => box === DARK_SQUARE);
   }
 }
 
