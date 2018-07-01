@@ -10,8 +10,7 @@ class BoardUI extends React.Component {
 
     this.board = new Board();
     this.state = {
-      grid: this.board.grid,
-      nextPiece: this.board.nextPiece
+      grid: this.board.grid
     };
 
     this.board.startGame(grid => {
@@ -42,7 +41,7 @@ class BoardUI extends React.Component {
     return (
       <div className="game-container">
         <div className="board-grid">{blocks}</div>
-        <NextPiece piece={this.board.nextPiece} />
+        {/* <NextPiece piece={this.board.nextPiece} /> */}
       </div>
     );
   }

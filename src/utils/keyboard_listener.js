@@ -4,22 +4,22 @@ export default (board, cb) => {
     switch (keyName) {
       case "ArrowLeft":
         board.movePieceLeft();
-        cb(board.grid, board.nextPiece);
+        cb(board.grid);
         break;
 
       case "ArrowRight":
         board.movePieceRight();
-        cb(board.grid, board.nextPiece);
+        cb(board.grid);
         break;
 
       case "ArrowUp":
         board.rotate();
-        cb(board.grid, board.nextPiece);
+        cb(board.grid);
         break;
 
       case "ArrowDown":
         board.dropPieceOneStep();
-        cb(board.grid, board.nextPiece);
+        cb(board.grid);
         break;
       default:
         break;

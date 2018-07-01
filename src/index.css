@@ -23,7 +23,9 @@ body {
 
 .board-grid {
   display: grid;
-  width: 25%;
+  min-width: 330px;
+  width: 24%;
+  min-height: 500px;
   height: 80vh;
   margin: 0 auto;
   grid-template-columns: repeat(10, 1fr);
@@ -35,8 +37,8 @@ body {
 .main-container {
   margin-top: 50px;
 }
-
+/* 
 .game-container {
   display: grid;
   grid-template-columns: 5fr 1fr;
-}
+} */
