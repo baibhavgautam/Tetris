@@ -1,32 +1,27 @@
-export default (board, self) => {
-  document.addEventListener("keypress", event => {
+export default (board, cb) => {
+  document.addEventListener("keydown", function(event) {
     const keyName = event.key;
-    console.log(keyName);
     switch (keyName) {
-      case "8":
-        board.rotate();
-        self.setState({
-          grid: board.grid
-        });
-        break;
-      case "5":
-        board.dropPieceOneStep();
-        self.setState({
-          grid: board.grid
-        });
-        break;
-        break;
-      case "4":
+      case "ArrowLeft":
         board.movePieceLeft();
-        self.setState({
-          grid: board.grid
-        });
+        cb(board.grid);
         break;
-      case "6":
+
+      case "ArrowRight":
         board.movePieceRight();
-        self.setState({
-          grid: board.grid
-        });
+        cb(board.grid);
+        break;
+
+      case "ArrowUp":
+        board.rotate();
+        cb(board.grid);
+        break;
+
+      case "ArrowDown":
+        board.dropPieceOneStep();
+        cb(board.grid);
+        break;
+      default:
         break;
     }
   });

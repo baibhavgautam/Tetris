@@ -1,14 +1,13 @@
 import React from "react";
-import { DARK_SQUARE } from "../model/src/utils/color_codes";
 import Board from "../model/src/board";
+import { DARK_SQUARE } from "../model/src/utils/color_codes";
 import keyboardListener from "../utils/keyboard_listener";
-
-const board = new Board();
 
 class BoardUI extends React.Component {
   constructor(props) {
     super(props);
 
+    const board = new Board();
     this.state = {
       grid: board.grid
     };
@@ -17,7 +16,9 @@ class BoardUI extends React.Component {
       this.setState({ grid });
     });
 
-    keyboardListener(board, this);
+    keyboardListener(board, grid => {
+      this.setState({ grid });
+    });
   }
 
   makeBlock(i, j) {
@@ -36,7 +37,6 @@ class BoardUI extends React.Component {
         blocks.push(this.makeBlock(i, j));
       }
     });
-
     return <div className="board-grid">{blocks}</div>;
   }
 }
