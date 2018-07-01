@@ -1,19 +1,23 @@
 import React from "react";
-// import ReactDOM from "react-dom";
 import Block from "./block";
 import Board from "../model/src/board";
+import keyboardListener from "../utils/keyboard_listener";
 
 const board = new Board();
 
-class BoardGUI extends React.Component {
+class BoardUI extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       grid: board.grid
     };
 
-    reset(this);
-    listenToKeyboard(this);
+    board.startGame(grid => {
+      this.setState({ grid });
+    });
+
+    keyboardListener(board, this);
   }
 
   makeBlock(i, j) {
@@ -32,56 +36,4 @@ class BoardGUI extends React.Component {
   }
 }
 
-// Helpers
-const reset = that => {
-  board.isGameOver = false;
-  board.initialize();
-  board.insertToGrid();
-  that.state = {
-    grid: board.grid
-  };
-  that.timerId = setInterval(() => {
-    board.dropPieceOneStep();
-    that.setState({
-      grid: board.grid
-    });
-    if (board.isGameOver) {
-      // foo();
-    }
-  }, 500);
-};
-
-const listenToKeyboard = that => {
-  document.addEventListener("keypress", event => {
-    const keyName = event.key;
-    switch (keyName) {
-      case "8":
-        board.rotate();
-        that.setState({
-          grid: board.grid
-        });
-        break;
-      case "5":
-        board.dropPieceOneStep();
-        that.setState({
-          grid: board.grid
-        });
-        break;
-        break;
-      case "4":
-        board.movePieceLeft();
-        that.setState({
-          grid: board.grid
-        });
-        break;
-      case "6":
-        board.movePieceRight();
-        that.setState({
-          grid: board.grid
-        });
-        break;
-    }
-  });
-};
-
-export default BoardGUI;
+export default BoardUI;

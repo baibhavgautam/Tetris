@@ -22,7 +22,7 @@ class Board {
       if (cb) cb(this.grid);
       if (this.isGameOver) {
         clearInterval(timerId);
-        this.startGame();
+        this.startGame(cb);
       }
     }, 500);
   }
